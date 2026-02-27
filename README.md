@@ -132,7 +132,7 @@ Traditional e-reading platforms often lack modern features and responsive design
 
 #### Libraries & Plugins
 
-``javascript
+  javascript
 // UI & Animations
 ├── AOS (Animate On Scroll) 2.3.1
 ├── Swiper.js 10.x
@@ -189,22 +189,16 @@ Ensure you have the following installed:
 
 📸 Screenshots
 🏠 Home Page
-Home Page
+<img width="1907" height="931" alt="dashboard" src="https://github.com/user-attachments/assets/97f364b8-97aa-4666-9c45-978dbf0a8322" />
 Hero section with animated floating books and CTA buttons
 
 📚 Book Catalog
-Book Catalog
+<img width="1897" height="927" alt="book_catalog" src="https://github.com/user-attachments/assets/a1113059-e76e-4088-ab63-0a7e74e311cd" />
 Grid view with advanced filters and sorting options
 
-🔍 Advanced Search
-Search
+🔍 catogories
+<img width="1901" height="928" alt="catogory" src="https://github.com/user-attachments/assets/71984699-361e-4092-bc0f-2d6613c610bf" />
 Full-screen search with voice search capability
-
-📖 Book Reader
-Reader
-Full-screen reader with customizable settings
-
-
 
 ⚡ Performance
 Lighthouse Scores:
