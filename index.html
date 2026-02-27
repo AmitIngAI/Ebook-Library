@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive E-Book Library - Read thousands of books online">
+    <meta name="keywords" content="ebooks, online library, digital books, reading">
+    <meta name="author" content="E-Book Library">
+    
+    <title>📚 E-Book Library | Read Anywhere, Anytime</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader" style="display: none;">
+        <div class="loader">
+            <div class="book">
+                <div class="book__page"></div>
+                <div class="book__page"></div>
+                <div class="book__page"></div>
+            </div>
+            <p class="loader-text">Loading your library...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <span class="logo-icon">📚</span>
+                <span class="logo-text">E-Book<span class="text-primary">Library</span></span>
+            </a>
+            
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Nav Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">
+                            <i class="bi bi-house-door"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#catalog">
+                            <i class="bi bi-book"></i> Catalog
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#categories">
+                            <i class="bi bi-grid"></i> Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#featured">
+                            <i class="bi bi-star"></i> Featured
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">
+                            <i class="bi bi-info-circle"></i> About
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Nav Actions -->
+                <div class="nav-actions d-flex align-items-center gap-3">
+                    <!-- Search Toggle -->
+                    <button class="btn btn-icon" id="searchToggle" title="Search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    
+                    <!-- Favorites -->
+                    <button class="btn btn-icon position-relative" id="favoritesToggle" title="Favorites">
+                        <i class="bi bi-heart"></i>
+                        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" id="favCount">0</span>
+                    </button>
+                    
+                    <!-- Reading List -->
+                    <button class="btn btn-icon position-relative" id="readingListToggle" title="Reading List">
+                        <i class="bi bi-bookmark"></i>
+                        <span class="badge bg-primary position-absolute top-0 start-100 translate-middle" id="readingCount">0</span>
+                    </button>
+                    
+                    <!-- Theme Toggle -->
+                    <button class="btn btn-icon" id="themeToggle" title="Toggle Theme">
+                        <i class="bi bi-moon-stars"></i>
+                    </button>
+                    
+                    <!-- User Menu -->
+                    <div class="dropdown">
+                        <button class="btn btn-icon" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-clock-history"></i> Reading History</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <button class="search-close" id="searchClose">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="search-content">
+                <h2>Search Our Library</h2>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search by title, author, or ISBN..." autocomplete="off">
+                    <button class="search-voice" id="voiceSearch" title="Voice Search">
+                        <i class="bi bi-mic"></i>
+                    </button>
+                </div>
+                <div class="search-filters">
+                    <select id="searchCategory" class="form-select">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="searchSort" class="form-select">
+                        <option value="relevance">Relevance</option>
+                        <option value="title">Title A-Z</option>
+                        <option value="title-desc">Title Z-A</option>
+                        <option value="rating">Highest Rated</option>
+                        <option value="newest">Newest First</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+                <div class="search-suggestions" id="searchSuggestions">
+                    <h5>Popular Searches</h5>
+                    <div class="suggestion-tags">
+                        <span class="tag" data-search="Fiction">Fiction</span>
+                        <span class="tag" data-search="Mystery">Mystery</span>
+                        <span class="tag" data-search="Romance">Romance</span>
+                        <span class="tag" data-search="Science Fiction">Science Fiction</span>
+                        <span class="tag" data-search="Biography">Biography</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg">
+            <div class="floating-books">
+                <span class="float-book">📖</span>
+                <span class="float-book">📚</span>
+                <span class="float-book">📕</span>
+                <span class="float-book">📗</span>
+                <span class="float-book">📘</span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="hero-content">
+                        <span class="hero-badge">
+                            <i class="bi bi-stars"></i> Welcome to Our Digital Library
+                        </span>
+                        <h1 class="hero-title">
+                            Discover Your Next
+                            <span class="text-gradient">Favorite Book</span>
+                        </h1>
+                        <p class="hero-description">
+                            Explore our vast collection of over <strong>50+ books</strong> across 
+                            <strong>10+ categories</strong>. Read anywhere, anytime on any device 
+                            with our fully responsive e-book platform.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="50">0</span>+
+                                <span class="stat-label">Books</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="10">0</span>+
+                                <span class="stat-label">Categories</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-count="1000">0</span>+
+                                <span class="stat-label">Readers</span>
+                            </div>
+                        </div>
+                        <div class="hero-actions">
+                            <a href="#catalog" class="btn btn-primary btn-lg">
+                                <i class="bi bi-book"></i> Browse Catalog
+                            </a>
+                            <a href="#featured" class="btn btn-outline-primary btn-lg">
+                                <i class="bi bi-play-circle"></i> Explore Featured
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="hero-image">
+                        <div class="book-showcase">
+                            <div class="book-3d">
+                                <div class="book-cover">
+                                    <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="Featured Book">
+                                </div>
+                            </div>
+                            <div class="book-info-card">
+                                <span class="badge bg-warning">📖 Now Reading</span>
+                                <h4>The Great Gatsby</h4>
+                                <p>F. Scott Fitzgerald</p>
+                                <div class="progress-bar-custom">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <span class="progress-text">65% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <a href="#catalog">
+                <div class="mouse"></div>
+                <span>Scroll to explore</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Quick Stats Bar -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card">
+                        <i class="bi bi-book"></i>
+                        <div class="stat-info">
+                            <span class="number">50+</span>
+                            <span class="label">Total Books</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-card">
+                        <i class="bi bi-grid"></i>
+                        <div class="stat-info">
+                            <span class="number">10+</span>
+                            <span class="label">Categories</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-card">
+                        <i class="bi bi-people"></i>
+                        <div class="stat-info">
+                            <span class="number">1K+</span>
+                            <span class="label">Active Readers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-card">
+                        <i class="bi bi-star"></i>
+                        <div class="stat-info">
+                            <span class="number">4.9</span>
+                            <span class="label">User Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">📂 Categories</span>
+                <h2 class="section-title">Browse by Category</h2>
+                <p class="section-subtitle">Find books that match your interests from our diverse collection</p>
+            </div>
+            
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Catalog Section -->
+    <section id="catalog" class="catalog-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">📚 Our Collection</span>
+                <h2 class="section-title">Book Catalog</h2>
+                <p class="section-subtitle">Discover amazing books from various genres</p>
+            </div>
+            
+            <!-- Filter Bar -->
+            <div class="filter-bar" data-aos="fade-up">
+                <div class="filter-left">
+                    <div class="filter-group">
+                        <label>Category:</label>
+                        <select id="categoryFilter" class="form-select">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Rating:</label>
+                        <select id="ratingFilter" class="form-select">
+                            <option value="">All Ratings</option>
+                            <option value="4">4+ Stars</option>
+                            <option value="3">3+ Stars</option>
+                            <option value="2">2+ Stars</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Year:</label>
+                        <select id="yearFilter" class="form-select">
+                            <option value="">All Years</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="classic">Classics</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Sort By:</label>
+                        <select id="sortFilter" class="form-select">
+                            <option value="default">Default</option>
+                            <option value="title-asc">Title (A-Z)</option>
+                            <option value="title-desc">Title (Z-A)</option>
+                            <option value="rating-desc">Highest Rated</option>
+                            <option value="newest">Newest First</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-right">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid" title="Grid View">
+                            <i class="bi bi-grid-3x3-gap"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" title="List View">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+                    <div class="results-count">
+                        <span id="resultsCount">0</span> books found
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Active Filters -->
+            <div class="active-filters" id="activeFilters"></div>
+            
+            <!-- Books Grid -->
+            <div class="books-container grid-view" id="booksContainer">
+                <!-- Books will be loaded dynamically -->
+            </div>
+            
+            <!-- Load More -->
+            <div class="load-more-container" data-aos="fade-up">
+                <button class="btn btn-primary btn-lg" id="loadMoreBtn">
+                    <i class="bi bi-plus-circle"></i> Load More Books
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Books Section -->
+    <section id="featured" class="featured-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">⭐ Editor's Choice</span>
+                <h2 class="section-title">Featured Books</h2>
+                <p class="section-subtitle">Hand-picked selections from our editors</p>
+            </div>
+            
+            <div class="featured-slider" data-aos="fade-up">
+                <div class="swiper featured-swiper">
+                    <div class="swiper-wrapper" id="featuredBooks">
+                        <!-- Featured books will be loaded dynamically -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Progress Section -->
+    <section class="reading-progress-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">📖 Continue Reading</span>
+                <h2 class="section-title">Your Reading Progress</h2>
+                <p class="section-subtitle">Pick up where you left off</p>
+            </div>
+            
+            <div class="progress-cards" id="progressCards">
+                <!-- Reading progress will be shown here -->
+                <div class="empty-state" id="emptyProgress">
+                    <i class="bi bi-book"></i>
+                    <h4>No books in progress</h4>
+                    <p>Start reading a book and your progress will appear here</p>
+                    <a href="#catalog" class="btn btn-primary">Browse Catalog</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Section -->
+    <section class="new-arrivals-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">🆕 Just Added</span>
+                <h2 class="section-title">New Arrivals</h2>
+                <p class="section-subtitle">Fresh additions to our library</p>
+            </div>
+            
+            <div class="row g-4" id="newArrivals">
+                <!-- New arrivals will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">💬 Testimonials</span>
+                <h2 class="section-title">What Readers Say</h2>
+                <p class="section-subtitle">Join thousands of satisfied readers</p>
+            </div>
+            
+            <div class="testimonials-grid" data-aos="fade-up">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"This platform has transformed my reading habits. The interface is beautiful and the book selection is amazing!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/100?img=1" alt="User">
+                        <div class="author-info">
+                            <h5>Sarah Johnson</h5>
+                            <span>Book Enthusiast</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <p class="testimonial-text">"I love the reading progress tracking feature. It keeps me motivated to finish books!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/100?img=2" alt="User">
+                        <div class="author-info">
+                            <h5>Michael Chen</h5>
+                            <span>Avid Reader</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                    </div>
+                    <p class="testimonial-text">"The dark mode is perfect for night reading. Best e-book platform I've used!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/100?img=3" alt="User">
+                        <div class="author-info">
+                            <h5>Emily Davis</h5>
+                            <span>Night Owl Reader</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-card" data-aos="zoom-in">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="newsletter-content">
+                            <h2>📬 Stay Updated</h2>
+                            <p>Subscribe to our newsletter for new book arrivals, reading tips, and exclusive offers!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <form class="newsletter-form" id="newsletterForm">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-send"></i> Subscribe
+                                </button>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                <label class="form-check-label" for="agreeTerms">
+                                    I agree to receive newsletter emails
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="about-image">
+                        <div class="image-stack">
+                            <div class="stack-item">
+                                <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400" alt="Library">
+                            </div>
+                            <div class="stack-item">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Reading">
+                            </div>
+                        </div>
+                        <div class="experience-badge">
+                            <span class="number">5+</span>
+                            <span class="text">Years of Excellence</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="about-content">
+                        <span class="section-badge">📖 About Us</span>
+                        <h2>Your Gateway to Endless Knowledge</h2>
+                        <p class="lead">We believe that books have the power to transform lives, inspire minds, and open doors to new possibilities.</p>
+                        <p>Our digital library was founded with a simple mission: to make quality literature accessible to everyone, everywhere. With our carefully curated collection of over 50 books across 10+ categories, we strive to cater to every reader's taste.</p>
+                        
+                        <div class="about-features">
+                            <div class="feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Curated Book Collection</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Responsive on All Devices</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Dark/Light Reading Mode</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Progress Tracking</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Personalized Recommendations</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Community Features</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#catalog" class="btn btn-primary btn-lg mt-4">
+                            <i class="bi bi-arrow-right"></i> Start Exploring
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-brand">
+                            <a href="#" class="logo">
+                                <span class="logo-icon">📚</span>
+                                <span class="logo-text">E-Book<span>Library</span></span>
+                            </a>
+                            <p>Your digital gateway to endless knowledge. Read anywhere, anytime on any device.</p>
+                            <div class="social-links">
+                                <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-links">
+                            <h5>Quick Links</h5>
+                            <ul>
+                                <li><a href="#home">Home</a></li>
+                                <li><a href="#catalog">Catalog</a></li>
+                                <li><a href="#categories">Categories</a></li>
+                                <li><a href="#featured">Featured</a></li>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-links">
+                            <h5>Categories</h5>
+                            <ul>
+                                <li><a href="#">Fiction</a></li>
+                                <li><a href="#">Non-Fiction</a></li>
+                                <li><a href="#">Mystery</a></li>
+                                <li><a href="#">Romance</a></li>
+                                <li><a href="#">Science Fiction</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-links">
+                            <h5>Support</h5>
+                            <ul>
+                                <li><a href="#">Help Center</a></li>
+                                <li><a href="#">FAQs</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Service</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-links">
+                            <h5>Contact</h5>
+                            <ul class="contact-info">
+                                <li><i class="bi bi-geo-alt"></i> 123 Library Street</li>
+                                <li><i class="bi bi-envelope"></i> hello@ebooks.com</li>
+                                <li><i class="bi bi-telephone"></i> +1 234 567 890</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p>&copy; 2024 E-Book Library. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p>Made with ❤️ for book lovers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" title="Back to Top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Book Modal -->
+    <div class="modal fade book-modal" id="bookModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="book-modal-cover">
+                                <img id="modalCover" src="" alt="Book Cover">
+                                <div class="book-badges" id="modalBadges"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="book-modal-info">
+                                <span class="book-category" id="modalCategory"></span>
+                                <h2 id="modalTitle"></h2>
+                                <p class="book-author">by <span id="modalAuthor"></span></p>
+                                
+                                <div class="book-meta">
+                                    <div class="meta-item">
+                                        <i class="bi bi-star-fill"></i>
+                                        <span id="modalRating"></span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="bi bi-book"></i>
+                                        <span id="modalPages"></span> pages
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="bi bi-calendar"></i>
+                                        <span id="modalYear"></span>
+                                    </div>
+                                </div>
+                                
+                                <p class="book-description" id="modalDescription"></p>
+                                
+                                <div class="book-tags" id="modalTags"></div>
+                                
+                                <div class="book-actions">
+                                    <button class="btn btn-primary btn-lg" id="modalReadBtn">
+                                        <i class="bi bi-book-half"></i> Start Reading
+                                    </button>
+                                    <button class="btn btn-outline-primary" id="modalFavoriteBtn">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary" id="modalBookmarkBtn">
+                                        <i class="bi bi-bookmark"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary" id="modalShareBtn">
+                                        <i class="bi bi-share"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reader Modal -->
+    <div class="modal fade reader-modal" id="readerModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="reader-header">
+                    <div class="reader-title">
+                        <button class="btn btn-icon" data-bs-dismiss="modal">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <h5 id="readerTitle">Book Title</h5>
+                    </div>
+                    <div class="reader-controls">
+                        <button class="btn btn-icon" id="fontDecrease" title="Decrease Font">
+                            <i class="bi bi-type"></i>-
+                        </button>
+                        <button class="btn btn-icon" id="fontIncrease" title="Increase Font">
+                            <i class="bi bi-type"></i>+
+                        </button>
+                        <button class="btn btn-icon" id="readerTheme" title="Toggle Theme">
+                            <i class="bi bi-circle-half"></i>
+                        </button>
+                        <button class="btn btn-icon" id="fullscreen" title="Fullscreen">
+                            <i class="bi bi-fullscreen"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="reader-body" id="readerBody">
+                    <div class="reader-content" id="readerContent">
+                        <!-- Book content will be loaded here -->
+                    </div>
+                </div>
+                <div class="reader-footer">
+                    <div class="reader-progress">
+                        <input type="range" class="form-range" id="readerProgress" min="0" max="100" value="0">
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="reader-navigation">
+                        <button class="btn btn-icon" id="prevPage">
+                            <i class="bi bi-chevron-left"></i> Previous
+                        </button>
+                        <span id="pageIndicator">Page 1 of 1</span>
+                        <button class="btn btn-icon" id="nextPage">
+                            Next <i class="bi bi-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Favorites Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="favorites-sidebar" id="favoritesSidebar">
+        <div class="sidebar-header">
+            <h4><i class="bi bi-heart-fill"></i> My Favorites</h4>
+            <button class="btn btn-icon" id="closeFavorites">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="sidebar-body" id="favoritesBody">
+            <div class="empty-state">
+                <i class="bi bi-heart"></i>
+                <p>No favorites yet</p>
+            </div>
+        </div>
+    </div>
+   
+        <!-- Add to index.html - Skeleton Cards -->
+    <div class="skeleton-card">
+        <div class="skeleton skeleton-img"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text short"></div>
+    </div> 
+
+    <!-- Reading List Sidebar -->
+    <div class="reading-list-sidebar" id="readingListSidebar">
+        <div class="sidebar-header">
+            <h4><i class="bi bi-bookmark-fill"></i> Reading List</h4>
+            <button class="btn btn-icon" id="closeReadingList">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="sidebar-body" id="readingListBody">
+            <div class="empty-state">
+                <i class="bi bi-bookmark"></i>
+                <p>Your reading list is empty</p>
+            </div>
+        </div>
+    </div>
+  
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <script src="js/books-data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
