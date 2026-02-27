@@ -14,9 +14,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/YOUR_USERNAME/ebook-library?style=for-the-badge)](https://github.com/AmitIngAI/ebook-library/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
 
-**[Live Demo]() • [Documentation](#-documentation) • [Report Bug](https://github.com/AmitIngAI/ebook-library/issues) • [Request Feature](https://github.com/AmitIngAI/ebook-library/issues)**
-
-![E-Book Library Hero](https://via.placeholder.com/1200x400/6366f1/ffffff?text=E-Book+Library+Pro)
+**[Live Demo]() •
 
 </div>
 
@@ -207,21 +205,7 @@ Full-screen search with voice search capability
 Reader
 Full-screen reader with customizable settings
 
-📱 Mobile View
-Mobile
-Fully responsive mobile interface
 
-🌓 Dark Mode
-Dark Mode
-Elegant dark theme for comfortable night reading
-
-❤️ Favorites Sidebar
-Favorites
-Quick access to favorite books
-
-📊 Reading Progress
-Progress
-Visual representation of reading progress
 
 ⚡ Performance
 Lighthouse Scores:
@@ -231,13 +215,13 @@ Best Practices: ██████████████████  100/100
 SEO           : ███████████████████  97/100
 
 Optimization Techniques
- Technique	           Implementation	                   Impact
-Lazy Loading	        Images load on scroll	          🚀 60% faster initial load
-Code Splitting	        Modular JS files	          📦 Smaller bundle size
-CSS Minification	Compressed stylesheets	          ⚡ 40% smaller CSS
-CDN Usage	        External libraries via CDN	  🌐 Global fast delivery
-Caching	                LocalStorage for data	          💾 Instant repeat visits
-Async Loading	        Non-blocking scripts	          ⏱️ Faster page render
+ Technique	   Implementation	                   Impact
+Lazy Loading	 Images load on scroll	          🚀 60% faster initial load
+Code Splitting	 Modular JS files	          📦 Smaller bundle size
+CSS Minification ompressed stylesheets	          ⚡ 40% smaller CSS
+CDN Usage	   External libraries via CDN	  🌐 Global fast delivery
+Cachin  LocalStorage for data	          💾 Instant repeat visits
+Async Lo  Non-blocking scripts	          ⏱️ Faster page render
 
 🤝 Contributing
 We love contributions! Here's how you can help:
