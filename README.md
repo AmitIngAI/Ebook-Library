@@ -134,7 +134,7 @@ Traditional e-reading platforms often lack modern features and responsive design
 
 #### Libraries & Plugins
 
-```javascript
+``javascript
 // UI & Animations
 ├── AOS (Animate On Scroll) 2.3.1
 ├── Swiper.js 10.x
