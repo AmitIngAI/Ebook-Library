@@ -294,15 +294,25 @@ Version 2.0.0
  📱 Native Mobile Apps
 
 <div align="center">
-📞 Contact
-Developer Information
-👨‍💻 [Amit Ingale]
+
+## 👨‍💻 Amit Ingale  
+
+📞 Contact  
+Developer Information  
+
+<br>
+
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:amitgingale@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/amitgingale07)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AmitIngAI)
 [![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white)](https://amitingale.vercel.app/)
-⭐ Show Your Support
+
+<br><br>
+
+⭐ **Show Your Support**  
 If this project helped you, please consider giving it a ⭐!
+
+</div>
 
 
 
