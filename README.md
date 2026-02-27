@@ -188,7 +188,6 @@ Ensure you have the following installed:
 ✅ Live Server Extension (VS Code)
 
 📸 Screenshots
-<details> <summary>🖼️ Click to View All Screenshots</summary>
 🏠 Home Page
 Home Page
 Hero section with animated floating books and CTA buttons
